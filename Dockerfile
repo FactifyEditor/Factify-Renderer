@@ -14,6 +14,6 @@ RUN pnpm i
 
 RUN pnpm build
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD [ "pnpm", "start" ]
