@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "start": "node --experimental-specifier-resolution=node dist",
+    "start": "node --experimental-specifier-resolution=node --loader ts-node/esm.mjs src/index.ts",
     "dev": "node --experimental-specifier-resolution=node --loader ts-node/esm.mjs src/index.ts",
     "example": "node --experimental-specifier-resolution=node --loader ts-node/esm.mjs src/example.ts",
     "build": "tsc"
