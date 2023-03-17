@@ -4,7 +4,10 @@ import AWS from "aws-sdk"
 import {Storage}  from '@google-cloud/storage';
 import config from "../common/app-config"
 import mime from "mime/lite"
+import dotenv from "dotenv"
+const bucketName= process.env.BUCKET_NAME
 
+dotenv.config()
 class GcloudService {
   bucket: any;
   constructor() {
@@ -24,7 +27,7 @@ class GcloudService {
   init = () => {
     const storage = new Storage();
     
-    this.bucket = storage.bucket('yug-external-files');
+    this.bucket = storage.bucket(bucketName);
    
   }
 }
