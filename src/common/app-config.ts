@@ -24,7 +24,7 @@ class Config implements AppConfig {
   public appPort: number
   public appHost: string
   constructor() {
-    this.cdnBase = process.env.CDN_BASE as string
+    this.cdnBase = process.env.CDN_BASE as string || 'https://storage.googleapis.com/factify/'
     this.aws = {
       bucket: process.env.AWS_BUCKET_NAME as string,
       credentials: {
