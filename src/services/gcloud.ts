@@ -6,9 +6,7 @@ import config from "../common/app-config"
 import mime from "mime/lite"
 import dotenv from "dotenv"
 dotenv.config()
-const bucketName= process.env.BUCKET_NAME
-
-dotenv.config()
+const bucketName= process.env.BUCKET_NAME || 'factify'
 class GcloudService {
   bucket: any;
   constructor() {
