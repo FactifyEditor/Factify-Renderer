@@ -153,7 +153,7 @@ async function parseConfig({ clips }: any) {
       // Filter out deleted layers
       layersOut = layersOut.filter((l) => l)
       return {
-        transition,
+        transition:{ duration: 0 },
         duration: clipDuration,
         layers: layersOut,
       }
