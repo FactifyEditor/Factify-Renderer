@@ -31,7 +31,7 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
   }
 
 
-  await loadFont(fontURL)
+  // await loadFont(fontURL)
   const element = new fabric.StaticText(textOptions)
 
   let left = element.left;
