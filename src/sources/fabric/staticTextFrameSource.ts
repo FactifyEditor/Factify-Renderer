@@ -32,7 +32,7 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
 
 
   // await loadFont(fontURL)
-  const element = new fabric.StaticText(textOptions)
+  const element = new fabric.Text(textOptions)
 
   let left = element.left;
   let totalFrames: number;
