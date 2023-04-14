@@ -9,6 +9,10 @@ import * as gsap from 'gsap'
 import { TweenLite, TimelineMax, Power3, Power2 } from 'gsap'
 const isUrl = (path: string) => /^https?:\/\//.test(path)
 import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 const loadedFonts=[]
 export function registerFont(...args) {
