@@ -32,7 +32,7 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
   // const imagePath = path.join(__dirname, 'assets/example.png');
   // const fontPath ='./../assets/;
   
-  const fontPath = "./../../assets/NotoSansDevanagari-Bold.ttf";
+  const fontPath = __dirname +"/assets/NotoSansDevanagari-Bold.ttf";
 
   if (fontPath) {
    let family = Buffer.from(basename(fontPath)).toString('base64');
