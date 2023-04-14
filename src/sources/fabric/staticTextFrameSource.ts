@@ -7,6 +7,8 @@ import { basename, join } from 'path';
 import * as gsap from 'gsap'
 import { TweenLite, TimelineMax, Power3, Power2 } from 'gsap'
 const isUrl = (path: string) => /^https?:\/\//.test(path)
+import path from 'path';
+
 const loadedFonts=[]
 export function registerFont(...args) {
   fabric.nodeCanvas.registerFont(...args);
@@ -27,7 +29,8 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
   }
   //
   // const imagePath = path.join(__dirname, 'assets/example.png');
-  const fontPath ='./../assets/NotoSansDevanagari-Bold.ttf';
+  // const fontPath ='./../assets/;
+  const fontPath = path.join(__dirname, 'assets', 'NotoSansDevanagari-Bold.ttf');
 
   if (fontPath) {
     fontFamily = Buffer.from(basename(fontPath)).toString('base64');
