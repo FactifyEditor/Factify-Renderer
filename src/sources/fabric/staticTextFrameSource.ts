@@ -2,13 +2,23 @@
 import { fabric } from "fabric"
 import { TextLayer } from "../../interfaces/common"
 import { easeOutExpo, easeInOutCubic } from '../../utils/transitions';
+import fileUrl from "file-url"
 import * as gsap from 'gsap'
-import {TweenLite,TimelineMax,Power3,Power2} from 'gsap'
+import { TweenLite, TimelineMax, Power3, Power2 } from 'gsap'
+const isUrl = (path: string) => /^https?:\/\//.test(path)
 
+async function loadFont(pathOrUrl: string) {
+  new Promise((resolve) =>
+    fabric.util.loadFont(isUrl(pathOrUrl) ? pathOrUrl : fileUrl(pathOrUrl), (font) => {
+     resolve(font)
+    })
+  )
+
+}
 async function staticTextFrameSource({ layer, options }: { layer: TextLayer; options: any }) {
   // const metadata = layer.metadata
-console.log(layer);
-  const { textAlign, fontFamily, fontSize, fontWeight, charSpacing, lineHeight, text, delay = 0, speed = 1 } = layer
+  console.log(layer);
+  const { textAlign,fontURL, fontFamily, fontSize, fontWeight, charSpacing, lineHeight, text, delay = 0, speed = 1 } = layer
   const textOptions = {
     ...layer,
     text: text ? text : "Default Text",
@@ -20,6 +30,8 @@ console.log(layer);
     ...(lineHeight && { lineHeight }),
   }
 
+
+  await loadFont(fontURL)
   const element = new fabric.StaticText(textOptions)
 
   let left = element.left;
@@ -37,39 +49,39 @@ console.log(layer);
     var paddingL = paddingV + (easedTextProgress - 1) * layer.width
     element.left = paddingL < left ? paddingL : left;
     element.opacity = easedTextOpacityProgress,
-    console.log(easedTextProgress);
-  //   var anim = new TimelineMax({ paused: true });
-  //   anim.progress(easedTextProgress);
-  //   const duration =  anim.duration();
-  //   console.log({"totalDuration":duration});
-  //   totalFrames = Math.max(1, Math.ceil((duration / 1) * 25));
-  //   anim.to(element, {
-  //     duration: 1,
-  //     angle: 360,
-  //     ease: Power3.easeOut,
-  //     delay:"2s"
-  // });
+      console.log(easedTextProgress);
+    //   var anim = new TimelineMax({ paused: true });
+    //   anim.progress(easedTextProgress);
+    //   const duration =  anim.duration();
+    //   console.log({"totalDuration":duration});
+    //   totalFrames = Math.max(1, Math.ceil((duration / 1) * 25));
+    //   anim.to(element, {
+    //     duration: 1,
+    //     angle: 360,
+    //     ease: Power3.easeOut,
+    //     delay:"2s"
+    // });
     canvas.add(element);
     // var timeline = new TimelineMax();
-  //   timeline.to(element, {
-  //     duration: 3,
-  //     ease: Power3.easeOut,
-  //     delay:"2s"
-  // });
-// Add animation sequences for the text element
-// timeline.to(element, 1, {top: paddingV + (easedTextProgress - 1) * layer.height, ease: Power2.easeInOut});
-// timeline.to(element, 1, { ease: Power2.easeInOut});
-// const tl = new TimelineMax();
-// tl.to(element, {duration: 1, y:-element.height, ease: 'power2.out'});
+    //   timeline.to(element, {
+    //     duration: 3,
+    //     ease: Power3.easeOut,
+    //     delay:"2s"
+    // });
+    // Add animation sequences for the text element
+    // timeline.to(element, 1, {top: paddingV + (easedTextProgress - 1) * layer.height, ease: Power2.easeInOut});
+    // timeline.to(element, 1, { ease: Power2.easeInOut});
+    // const tl = new TimelineMax();
+    // tl.to(element, {duration: 1, y:-element.height, ease: 'power2.out'});
 
     // animateText(element,canvas);
 
     // console.log(progress);
     // element.animate('left', '+=100', { onChange: canvas.renderAll.bind(canvas) });
- 
+
   }
-  
-  
+
+
 
   return { onRender }
 }
