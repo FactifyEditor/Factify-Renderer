@@ -34,10 +34,10 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
   const fontPath = "src/assets/NotoSansDevanagari-Bold.ttf";
 
   if (fontPath) {
-    fontFamily = Buffer.from(basename(fontPath)).toString('base64');
-    if (!loadedFonts.includes(fontFamily)) {
-      registerFont(fontPath, { family: fontFamily, weight: fontWeight, style: 'normal' });
-      loadedFonts.push(fontFamily);
+   let family = Buffer.from(basename(fontPath)).toString('base64');
+    if (!loadedFonts.includes(family)) {
+      registerFont(fontPath, { family: family, weight: fontWeight, style: 'normal' });
+      loadedFonts.push(family);
     }
   }
   // await loadFont(fontURL)
