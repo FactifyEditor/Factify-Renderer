@@ -6,14 +6,9 @@ import fileUrl from "file-url"
 import * as gsap from 'gsap'
 import { TweenLite, TimelineMax, Power3, Power2 } from 'gsap'
 const isUrl = (path: string) => /^https?:\/\//.test(path)
-
-async function loadFont(pathOrUrl: string) {
-  new Promise((resolve) =>
-    fabric.util.loadFont(isUrl(pathOrUrl) ? pathOrUrl : fileUrl(pathOrUrl), (font) => {
-     resolve(font)
-    })
-  )
-
+const loadedFonts=[]
+export function registerFont(...args) {
+  fabric.nodeCanvas.registerFont(...args);
 }
 async function staticTextFrameSource({ layer, options }: { layer: TextLayer; options: any }) {
   // const metadata = layer.metadata
@@ -30,7 +25,15 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
     ...(lineHeight && { lineHeight }),
   }
 
-
+  let { fontFamily } = layer;
+  const fontPath ='src/assets/NotoSansDevanagari-Bold.ttf'
+  if (fontPath) {
+    fontFamily = Buffer.from(basename(fontPath)).toString('base64');
+    if (!loadedFonts.includes(fontFamily)) {
+      registerFont(fontPath, { family: fontFamily, weight: fontWeight, style: 'normal' });
+      loadedFonts.push(fontFamily);
+    }
+  }
   // await loadFont(fontURL)
   const element = new fabric.StaticText(textOptions)
 
