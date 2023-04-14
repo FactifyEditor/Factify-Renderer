@@ -24,8 +24,6 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
     ...(charSpacing && { charSpacing }),
     ...(lineHeight && { lineHeight }),
   }
-
-  let { fontFamily } = layer;
   const fontPath ='src/assets/NotoSansDevanagari-Bold.ttf'
   if (fontPath) {
     fontFamily = Buffer.from(basename(fontPath)).toString('base64');
