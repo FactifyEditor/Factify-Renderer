@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { fabric } from "fabric"
 import { TextLayer } from "../../interfaces/common"
+
 import { easeOutExpo, easeInOutCubic } from '../../utils/transitions';
 import fileUrl from "file-url"
 import { basename, join } from 'path';
@@ -31,7 +32,7 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
   // const imagePath = path.join(__dirname, 'assets/example.png');
   // const fontPath ='./../assets/;
   
-  const fontPath = "./../assets/NotoSansDevanagari-Bold.ttf";
+  const fontPath = "./../../assets/NotoSansDevanagari-Bold.ttf";
 
   if (fontPath) {
    let family = Buffer.from(basename(fontPath)).toString('base64');
