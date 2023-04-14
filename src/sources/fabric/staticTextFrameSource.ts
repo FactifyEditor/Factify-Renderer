@@ -3,6 +3,7 @@ import { fabric } from "fabric"
 import { TextLayer } from "../../interfaces/common"
 import { easeOutExpo, easeInOutCubic } from '../../utils/transitions';
 import fileUrl from "file-url"
+import { basename, join } from 'path';
 import * as gsap from 'gsap'
 import { TweenLite, TimelineMax, Power3, Power2 } from 'gsap'
 const isUrl = (path: string) => /^https?:\/\//.test(path)
