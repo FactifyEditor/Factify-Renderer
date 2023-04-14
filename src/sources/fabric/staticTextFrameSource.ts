@@ -25,7 +25,10 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
     ...(charSpacing && { charSpacing }),
     ...(lineHeight && { lineHeight }),
   }
-  const fontPath ='src/assets/NotoSansDevanagari-Bold.ttf'
+  //
+  // const imagePath = path.join(__dirname, 'assets/example.png');
+  const fontPath ='./../assets/NotoSansDevanagari-Bold.ttf';
+
   if (fontPath) {
     fontFamily = Buffer.from(basename(fontPath)).toString('base64');
     if (!loadedFonts.includes(fontFamily)) {
