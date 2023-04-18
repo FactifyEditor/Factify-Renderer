@@ -11,12 +11,45 @@ const isUrl = (path: string) => /^https?:\/\//.test(path)
 import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
-
 const __dirname = path.dirname(__filename);
+import * as fs from 'fs';
+import * as https from 'https';
+
+
+export const  downloadFile=(url: string, filePath: string): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    const file = fs.createWriteStream(filePath);
+    https.get(url, response => {
+      response.pipe(file);
+      file.on('finish', () => {
+        file.close();
+        console.log('File downloaded successfully');
+        resolve();
+      });
+    }).on('error', error => {
+      fs.unlink(filePath, () => {
+        console.error(`Error downloading file: ${error.message}`);
+        reject(error);
+      });
+    });
+  });
+}
+
 
 const loadedFonts=[]
 export function registerFont(...args) {
   fabric.nodeCanvas.registerFont(...args);
+}
+export function generateRandomString(length: number): string {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
 }
 async function staticTextFrameSource({ layer, options }: { layer: TextLayer; options: any }) {
   // const metadata = layer.metadata
@@ -35,9 +68,9 @@ async function staticTextFrameSource({ layer, options }: { layer: TextLayer; opt
   //
   // const imagePath = path.join(__dirname, 'assets/example.png');
   // const fontPath ='./../assets/;
-  
-  const fontPath = __dirname +"/assets/NotoSansDevanagari-Bold.ttf";
 
+  const fontPath = `${__dirname}/assets/${generateRandomString(4)}font.ttf`;
+  await downloadFile(fontURL,fontPath)
   if (fontPath) {
    let family = Buffer.from(basename(fontPath)).toString('base64');
     if (!loadedFonts.includes(family)) {
