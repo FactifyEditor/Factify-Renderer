@@ -3,7 +3,7 @@ name: Build and Deploy to Cloud Run
 on:
   push:
     branches:
-      - release
+      - staging
     tags:        
       - ver.*
 
@@ -63,7 +63,7 @@ jobs:
 
       - name: 'Create env file' 
         run: |
-          echo "${{ secrets.ENV_FILE }}" > .env
+          echo "${{ secrets.ENV_FILE_STAGING }}" > .env
 
       - name: Build and Push Container
         run: |-
