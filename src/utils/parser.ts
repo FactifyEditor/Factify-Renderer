@@ -80,7 +80,7 @@ export const parseAudioClip = (clips: AudioClip[]) => {
     };
     let volumeFilter = {
       filter: 'volume',
-      options: '10dB', // Increase the volume by 10dB.
+      options: '20dB', // Increase the volume by 10dB.
       inputs: `a${index}_delayed`,
       outputs: `a${index}_volume`,
     };
