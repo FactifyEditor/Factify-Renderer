@@ -59,35 +59,41 @@ export const parseClips = async (clips: Clip[]) => {
   }
 }
 
-export const parseAudioClip =  (clips:AudioClip[]) => {
-  let finalInputs = []
+export const parseAudioClip = (clips: AudioClip[]) => {
+  let finalInputs = [];
   let complexFilters = [];
   clips?.forEach((clip, index) => {
     let trimFilter = {
       filter: 'atrim',
       options: {
         start: clip.cutFrom,
-        end: clip.duration+clip.cutFrom
+        end: clip.duration + clip.cutFrom,
       },
       inputs: `${index}:a`,
       outputs: `a${index}_trimmed`,
-    }
+    };
     let delayFilter = {
       filter: 'adelay',
       options: `${clip.startingTime*1000}|${clip.startingTime*1000}`,
       inputs: `a${index}_trimmed`,
       outputs: `a${index}_delayed`,
-    }
+    };
+    let volumeFilter = {
+      filter: 'volume',
+      options: '10dB', // Increase the volume by 10dB.
+      inputs: `a${index}_delayed`,
+      outputs: `a${index}_volume`,
+    };
     complexFilters.push(trimFilter);
     complexFilters.push(delayFilter);
-    finalInputs.push(`a${index}_delayed`)
-  })
-  complexFilters.push( {
-      filter: 'amix',
-      options: `inputs=${finalInputs.length}`,
-      inputs: finalInputs,
-      outputs: 'mixedAudio'
-  })
+    complexFilters.push(volumeFilter);
+    finalInputs.push(`a${index}_volume`);
+  });
+  complexFilters.push({
+    filter: 'amix',
+    options: `inputs=${finalInputs.length}`,
+    inputs: finalInputs,
+    outputs: 'mixedAudio',
+  });
   return complexFilters;
-  
-}
+};
